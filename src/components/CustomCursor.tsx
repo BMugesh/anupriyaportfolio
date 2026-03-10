@@ -1,112 +1,71 @@
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
-const CustomCursor = () => {
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [hovering, setHovering] = useState(false);
-  const [visible, setVisible] = useState(false);
+export default function CustomCursor() {
+  const dotX = useMotionValue(-100);
+  const dotY = useMotionValue(-100);
+
+  const rawX = useMotionValue(-100);
+  const rawY = useMotionValue(-100);
+
+  const ringX = useSpring(rawX, { stiffness: 200, damping: 28 });
+  const ringY = useSpring(rawY, { stiffness: 200, damping: 28 });
+
+  const isOverButton = useRef(false);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
-      setVisible(true);
+      dotX.set(e.clientX);
+      dotY.set(e.clientY);
+      rawX.set(e.clientX);
+      rawY.set(e.clientY);
     };
 
-    const handleOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest("a, button, [data-clickable], input, textarea")) {
-        setHovering(true);
-      }
+    const over = (e: MouseEvent) => {
+      const el = e.target as HTMLElement;
+      isOverButton.current = !!el.closest("[data-button], button, a");
     };
-
-    const handleOut = () => setHovering(false);
-    const handleLeave = () => setVisible(false);
 
     window.addEventListener("mousemove", move);
-    window.addEventListener("mouseover", handleOver);
-    window.addEventListener("mouseout", handleOut);
-    document.addEventListener("mouseleave", handleLeave);
-
+    window.addEventListener("mouseover", over);
     return () => {
       window.removeEventListener("mousemove", move);
-      window.removeEventListener("mouseover", handleOver);
-      window.removeEventListener("mouseout", handleOut);
-      document.removeEventListener("mouseleave", handleLeave);
+      window.removeEventListener("mouseover", over);
     };
-  }, []);
-
-  if (!visible) return null;
+  }, [dotX, dotY, rawX, rawY]);
 
   return (
     <>
+      {/* Outer spring ring */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999]"
-        animate={{
-          x: pos.x - (hovering ? 20 : 6),
-          y: pos.y - (hovering ? 20 : 6),
-          width: hovering ? 40 : 12,
-          height: hovering ? 40 : 12,
-        }}
-        transition={{ type: "spring", stiffness: 500, damping: 28 }}
+        className="pointer-events-none fixed z-[9999] rounded-full"
         style={{
-          borderRadius: hovering ? 0 : "50%",
-          border: hovering
-            ? "1px solid hsl(184 100% 50% / 0.8)"
-            : "none",
-          background: hovering
-            ? "transparent"
-            : "hsl(184 100% 50%)",
-          boxShadow: hovering
-            ? "0 0 20px hsl(184 100% 50% / 0.4), inset 0 0 20px hsl(184 100% 50% / 0.1)"
-            : "0 0 15px hsl(184 100% 50% / 0.6), 0 0 30px hsl(184 100% 50% / 0.3)",
+          x: ringX,
+          y: ringY,
+          translateX: "-50%",
+          translateY: "-50%",
+          width: 40,
+          height: 40,
+          border: "1.5px solid rgba(0,180,255,0.6)",
+          background: "transparent",
+          mixBlendMode: "difference",
         }}
       />
-      {hovering && (
-        <>
-          <motion.div
-            className="fixed top-0 left-0 pointer-events-none z-[9998]"
-            animate={{ x: pos.x, y: pos.y - 20 }}
-            transition={{ type: "spring", stiffness: 500, damping: 28 }}
-            style={{
-              width: 1,
-              height: 8,
-              background: "hsl(184 100% 50% / 0.6)",
-            }}
-          />
-          <motion.div
-            className="fixed top-0 left-0 pointer-events-none z-[9998]"
-            animate={{ x: pos.x, y: pos.y + 12 }}
-            transition={{ type: "spring", stiffness: 500, damping: 28 }}
-            style={{
-              width: 1,
-              height: 8,
-              background: "hsl(184 100% 50% / 0.6)",
-            }}
-          />
-          <motion.div
-            className="fixed top-0 left-0 pointer-events-none z-[9998]"
-            animate={{ x: pos.x - 20, y: pos.y }}
-            transition={{ type: "spring", stiffness: 500, damping: 28 }}
-            style={{
-              width: 8,
-              height: 1,
-              background: "hsl(184 100% 50% / 0.6)",
-            }}
-          />
-          <motion.div
-            className="fixed top-0 left-0 pointer-events-none z-[9998]"
-            animate={{ x: pos.x + 12, y: pos.y }}
-            transition={{ type: "spring", stiffness: 500, damping: 28 }}
-            style={{
-              width: 8,
-              height: 1,
-              background: "hsl(184 100% 50% / 0.6)",
-            }}
-          />
-        </>
-      )}
+
+      {/* Inner neon dot — instant */}
+      <motion.div
+        className="pointer-events-none fixed z-[9999] rounded-full"
+        style={{
+          x: dotX,
+          y: dotY,
+          translateX: "-50%",
+          translateY: "-50%",
+          width: 6,
+          height: 6,
+          background: "#00b4ff",
+          boxShadow: "0 0 10px #00b4ff",
+        }}
+      />
     </>
   );
-};
-
-export default CustomCursor;
+}

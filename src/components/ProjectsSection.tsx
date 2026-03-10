@@ -41,7 +41,7 @@ const projects = [
 ];
 
 const ProjectBlade = ({ project, index }: { project: typeof projects[0]; index: number }) => (
-  <div className="min-w-[100vw] md:min-w-[100vw] h-full flex items-center justify-center px-4 sm:px-8 md:px-16">
+  <div className="relative min-w-[100vw] md:min-w-[100vw] h-full flex items-center justify-center px-4 sm:px-8 md:px-16">
     <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
       {/* Left: Project info */}
       <div className="space-y-4 sm:space-y-8">
@@ -150,11 +150,10 @@ const ProjectsSection = () => {
           {projects.map((p, i) => (
             <div
               key={p.id}
-              className={`w-1 h-8 transition-colors duration-300 ${
-                scrollProgress >= i / totalSlides && scrollProgress < (i + 1) / totalSlides
+              className={`w-1 h-8 transition-colors duration-300 ${scrollProgress >= i / totalSlides && scrollProgress < (i + 1) / totalSlides
                   ? "bg-primary glow-blue"
                   : "bg-border"
-              }`}
+                }`}
             />
           ))}
         </div>
