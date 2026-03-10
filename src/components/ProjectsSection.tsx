@@ -41,25 +41,25 @@ const projects = [
 ];
 
 const ProjectBlade = ({ project, index }: { project: typeof projects[0]; index: number }) => (
-  <div className="min-w-[100vw] h-full flex items-center justify-center px-8 md:px-16">
-    <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+  <div className="min-w-[100vw] md:min-w-[100vw] h-full flex items-center justify-center px-4 sm:px-8 md:px-16">
+    <div className="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
       {/* Left: Project info */}
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-8">
         <div>
-          <div className="text-xs font-mono text-muted-foreground tracking-widest mb-2">
+          <div className="text-[10px] sm:text-xs font-mono text-muted-foreground tracking-widest mb-2">
             {"// CASE_STUDY_"}{project.id}
           </div>
-          <h3 className="text-3xl md:text-4xl font-heading font-bold text-primary glow-text-blue">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-primary glow-text-blue">
             {project.title}
           </h3>
-          <p className="text-xs font-mono text-muted-foreground mt-1">{project.subtitle}</p>
+          <p className="text-[10px] sm:text-xs font-mono text-muted-foreground mt-1">{project.subtitle}</p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 border border-primary/20 text-[10px] font-mono text-primary/80"
+              className="px-2 sm:px-3 py-0.5 sm:py-1 border border-primary/20 text-[8px] sm:text-[10px] font-mono text-primary/80"
             >
               {tag}
             </span>
@@ -68,17 +68,17 @@ const ProjectBlade = ({ project, index }: { project: typeof projects[0]; index: 
       </div>
 
       {/* Right: Case study breakdown */}
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {[
           { label: "THE OBJECTIVE", text: project.objective },
           { label: "THE ENGINEERING", text: project.engineering },
           { label: "THE IMPACT", text: project.impact },
-        ].map((section, i) => (
-          <div key={section.label} className="border-l-2 border-primary/20 pl-4">
-            <div className="text-[10px] font-mono text-primary/60 tracking-widest mb-2">
+        ].map((section) => (
+          <div key={section.label} className="border-l-2 border-primary/20 pl-3 sm:pl-4">
+            <div className="text-[9px] sm:text-[10px] font-mono text-primary/60 tracking-widest mb-1 sm:mb-2">
               {section.label}
             </div>
-            <p className="text-sm font-mono text-foreground/70 leading-relaxed">
+            <p className="text-xs sm:text-sm font-mono text-foreground/70 leading-relaxed">
               {section.text}
             </p>
           </div>
@@ -87,7 +87,7 @@ const ProjectBlade = ({ project, index }: { project: typeof projects[0]; index: 
     </div>
 
     {/* Background project number */}
-    <div className="absolute right-8 bottom-8 text-[200px] font-heading font-bold text-primary/[0.03] leading-none select-none pointer-events-none">
+    <div className="absolute right-4 sm:right-8 bottom-4 sm:bottom-8 text-[100px] sm:text-[200px] font-heading font-bold text-primary/[0.03] leading-none select-none pointer-events-none">
       {project.id}
     </div>
   </div>
