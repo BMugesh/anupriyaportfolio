@@ -117,6 +117,15 @@ export default function HeroSection() {
             // SYSTEM_INITIALIZED • PORTFOLIO v2.0
           </motion.div>
 
+          {/* Logo */}
+          <motion.img
+            variants={itemVariants}
+            src="/logo.png"
+            alt="Anupriya D. Logo"
+            className="w-24 h-24 mb-6 object-contain"
+            style={{ filter: "drop-shadow(0 0 20px rgba(0,180,255,0.4))" }}
+          />
+
           {/* Main Heading */}
           <motion.h1
             variants={itemVariants}

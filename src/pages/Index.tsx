@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CustomCursor from "@/components/CustomCursor";
 import SchemaDiveTransition from "@/components/SchemaDiveTransition";
+import NavigationBar from "@/components/NavigationBar";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
@@ -19,6 +20,7 @@ const Index = () => {
 
       {/* Cinematic Schematic Dive Entry Sequence */}
       <SchemaDiveTransition>
+        <NavigationBar />
         {/* Hero Section with Glassmorphic HUD */}
         <HeroSection />
 

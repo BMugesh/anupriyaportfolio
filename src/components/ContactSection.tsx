@@ -99,7 +99,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="relative py-32 px-4 md:px-8 overflow-hidden" ref={sectionRef}>
+    <section id="contact" className="relative py-32 px-4 md:px-8 overflow-hidden" ref={sectionRef}>
       <div className="absolute inset-0 circuit-grid opacity-30" />
 
       <div className="relative max-w-5xl mx-auto">

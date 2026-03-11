@@ -57,14 +57,25 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32 px-4 md:px-8 overflow-hidden bg-[#060610]">
-      {/* Background Grid */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(rgba(0,180,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,180,255,0.2) 1px, transparent 1px)',
-        backgroundSize: '40px 40px'
-      }} />
+    <section id="about" ref={sectionRef} className="relative py-24 md:py-32 px-4 md:px-8 overflow-hidden bg-[#060610]">
+      {/* Background Lighting for Glassmorphism Context */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00f3ff] rounded-full mix-blend-screen filter blur-[120px] opacity-20 pointer-events-none"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#ffb000] rounded-full mix-blend-screen filter blur-[120px] opacity-10 pointer-events-none"></div>
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: 'linear-gradient(rgba(0,180,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(0,180,255,0.2) 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }} />
+      </div>
 
-      <div className="relative max-w-6xl mx-auto space-y-16">
+      <style>{`
+        /* Overriding DaisyUI Mockup Code Dots to be Neutral/Monochromatic */
+        .mockup-neutral::before {
+          box-shadow: 1.4em 0 0 rgba(255,255,255,0.2), 2.8em 0 0 rgba(255,255,255,0.2), 4.2em 0 0 rgba(255,255,255,0.2) !important;
+        }
+      `}</style>
+
+      <div className="relative z-10 max-w-6xl mx-auto space-y-16">
 
         {/* SECTION HEADER */}
         <motion.div
@@ -88,11 +99,14 @@ export default function AboutSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mockup-code bg-[#020205] border border-[#00b4ff]/20 text-sm font-mono shadow-[0_0_30px_rgba(0,180,255,0.05)] w-full"
+            className="mockup-code mockup-neutral bg-base-300 border border-white/10 w-full h-full shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] overflow-hidden"
           >
             <pre data-prefix=">"><code className="text-[#00b4ff]/60">INIT_ENGINEER_PROFILE --target "Anupriya D"</code></pre>
-            <pre data-prefix=">" className="text-[#00ffcc] mt-2"><code>STATUS: ONLINE [EEE @ Sri Eshwar College of Engineering]</code></pre>
-            <pre data-prefix=">" className="text-warning mt-2"><code>SPECIALIZATION: Bare-Metal C, IoT Architecture, EV Powertrains.</code></pre>
+            <pre data-prefix=">" className="mt-2 flex items-center gap-2">
+              <code className="text-[#00ffcc]">STATUS: ONLINE [EEE @ Sri Eshwar College of Engineering]</code>
+              <span className="inline-block w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_8px_rgba(0,255,128,0.8)]"></span>
+            </pre>
+            <pre data-prefix=">" className="text-warning mt-2" style={{ textShadow: "0 0 8px rgba(255,204,0,0.4)" }}><code>SPECIALIZATION: Bare-Metal C, IoT Architecture, EV Powertrains.</code></pre>
             <pre data-prefix=">" className="mt-4"><code className="text-white/40">Loading subroutines...</code></pre>
             <pre data-prefix=">" className="animate-pulse"><code>_</code></pre>
           </motion.div>
@@ -102,113 +116,99 @@ export default function AboutSection() {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="card glass border border-[#00b4ff]/10 backdrop-blur-xl bg-white/[0.02]"
+            className="bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 flex flex-col justify-center transition-all duration-300 hover:border-info/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]"
           >
-            <div className="card-body p-8 md:p-10">
-              <h2 className="text-2xl md:text-3xl font-heading font-black text-white mb-6 uppercase tracking-tight" style={{ textShadow: "0 0 20px rgba(0,180,255,0.5)" }}>
-                I engineer the logic that brings hardware to life.
-              </h2>
+            <h2 className="text-2xl md:text-3xl font-heading font-black text-white mb-6 uppercase tracking-tight" style={{ textShadow: "0 0 20px rgba(0,180,255,0.5)" }}>
+              I engineer the logic that brings hardware to life.
+            </h2>
 
-              <div className="space-y-4 font-mono text-sm md:text-base text-white/70 leading-relaxed">
-                <motion.p
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6 }}
-                >
-                  I specialize in the space where physical voltage translates into digital intelligence. From building a 1kW electric vehicle from the ground up to writing the Embedded C that drives precise STM32 microcontrollers, my focus is on full-system integration.
-                </motion.p>
+            <div className="space-y-4 font-mono text-sm md:text-base text-white/70 leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 }}
+              >
+                I specialize in the space where physical voltage translates into digital intelligence. From building a 1kW electric vehicle from the ground up to writing the Embedded C that drives precise STM32 microcontrollers, my focus is on full-system integration.
+              </motion.p>
 
-                <motion.p
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8 }}
-                  className="text-[#00b4ff]/90"
-                >
-                  As the Co-Founder of Anvora, I bridge the gap between engineering constraints and product innovation, building systems that are scalable, efficient, and relentless.
-                </motion.p>
-              </div>
+              <motion.p
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+                className="text-[#00b4ff]/90"
+              >
+                As the Co-Founder of Anvora, I bridge the gap between engineering constraints and product innovation, building systems that are scalable, efficient, and relentless.
+              </motion.p>
             </div>
           </motion.div>
         </div>
 
         {/* PART 2: THE BENTO BOX SKILLS GRID */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 pt-10">
+        <div id="skills" ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto pt-10">
 
-          {/* Mod 1: The Logic (Large Block) */}
+          {/* Mod 1: The Logic (spans 2 columns) */}
           <motion.div
-            className="bento-card card glass border border-[#00b4ff]/20 bg-[#00b4ff]/[0.02] md:col-span-2 md:row-span-2 shadow-[inset_0_0_40px_rgba(0,180,255,0.02)]"
-            whileHover={{ scale: 1.02, boxShadow: "0px 0px 25px rgba(0, 180, 255, 0.15)", borderColor: "rgba(0,180,255,0.4)" }}
+            className="bento-card col-span-1 md:col-span-2 h-full bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 flex flex-col justify-center transition-all duration-300 hover:border-info/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]"
           >
-            <div className="card-body p-6 md:p-8">
-              <span className="font-mono text-[10px] text-[#00b4ff]/60 tracking-[0.2em] mb-4 uppercase">
-                // {skills.core.title}
-              </span>
-              <div className="flex flex-wrap gap-2 md:gap-3">
-                {skills.core.tags.map(tag => (
-                  <span key={tag} className="badge badge-info badge-outline border-[#00b4ff]/50 bg-[#00b4ff]/5 font-mono text-[#00b4ff] py-3 px-4 shadow-[0_0_10px_rgba(0,180,255,0.1)]">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <span className="font-mono text-xs text-white/40 tracking-[0.2em] uppercase mb-4">
+              // {skills.core.title}
+            </span>
+            <div className="flex flex-wrap gap-3 mt-auto">
+              {skills.core.tags.map(tag => (
+                <span key={tag} className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-[#00f3ff] bg-[#00f3ff]/10 border border-[#00f3ff]/30 rounded-full shadow-[0_0_15px_rgba(0,243,255,0.15)]">
+                  {tag}
+                </span>
+              ))}
             </div>
           </motion.div>
 
-          {/* Mod 2: The Hardware (Wide Block) */}
+          {/* Mod 2: The Hardware (spans 1 column) */}
           <motion.div
-            className="bento-card card glass border border-[#e06c1a]/20 bg-[#e06c1a]/[0.02] md:col-span-2 shadow-[inset_0_0_40px_rgba(224,108,26,0.02)]"
-            whileHover={{ scale: 1.02, boxShadow: "0px 0px 25px rgba(224, 108, 26, 0.15)", borderColor: "rgba(224,108,26,0.4)" }}
+            className="bento-card col-span-1 h-full bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 flex flex-col justify-center transition-all duration-300 hover:border-info/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]"
           >
-            <div className="card-body p-6">
-              <span className="font-mono text-[10px] text-[#e06c1a]/60 tracking-[0.2em] mb-4 uppercase">
-                // {skills.physical.title}
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {skills.physical.tags.map(tag => (
-                  <span key={tag} className="badge border-[#e06c1a]/40 bg-[#e06c1a]/5 text-[#e06c1a] font-mono whitespace-nowrap">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <span className="font-mono text-xs text-white/40 tracking-[0.2em] uppercase mb-4">
+              // {skills.physical.title}
+            </span>
+            <div className="flex flex-wrap gap-3 mt-auto">
+              {skills.physical.tags.map(tag => (
+                <span key={tag} className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-[#00f3ff] bg-[#00f3ff]/10 border border-[#00f3ff]/30 rounded-full shadow-[0_0_15px_rgba(0,243,255,0.15)]">
+                  {tag}
+                </span>
+              ))}
             </div>
           </motion.div>
 
-          {/* Mod 3: Cloud & Data (Square Block) */}
+          {/* Mod 3: Cloud & Data (spans 1 column) */}
           <motion.div
-            className="bento-card card glass border border-white/10 bg-white/[0.02] md:col-span-1 shadow-[inset_0_0_40px_rgba(255,255,255,0.01)]"
-            whileHover={{ scale: 1.02, boxShadow: "0px 0px 20px rgba(255, 255, 255, 0.08)", borderColor: "rgba(255,255,255,0.3)" }}
+            className="bento-card col-span-1 h-full bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 flex flex-col justify-center transition-all duration-300 hover:border-info/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]"
           >
-            <div className="card-body p-6">
-              <span className="font-mono text-[10px] text-white/40 tracking-[0.2em] mb-4 uppercase">
-                // {skills.architecture.title}
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {skills.architecture.tags.map(tag => (
-                  <span key={tag} className="text-xs font-mono text-white/60 border border-white/10 px-2 py-1 bg-black/20 rounded">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <span className="font-mono text-xs text-white/40 tracking-[0.2em] uppercase mb-4">
+              // {skills.architecture.title}
+            </span>
+            <div className="flex flex-wrap gap-3 mt-auto">
+              {skills.architecture.tags.map(tag => (
+                <span key={tag} className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-[#00f3ff] bg-[#00f3ff]/10 border border-[#00f3ff]/30 rounded-full shadow-[0_0_15px_rgba(0,243,255,0.15)]">
+                  {tag}
+                </span>
+              ))}
             </div>
           </motion.div>
 
-          {/* Mod 4: The Workbench (Square Block) */}
+          {/* Mod 4: The Workbench (spans 2 columns) */}
           <motion.div
-            className="bento-card card glass border border-[#00ffcc]/20 bg-[#00ffcc]/[0.02] md:col-span-1 shadow-[inset_0_0_40px_rgba(0,255,204,0.02)]"
-            whileHover={{ scale: 1.02, boxShadow: "0px 0px 20px rgba(0, 255, 204, 0.15)", borderColor: "rgba(0,255,204,0.4)" }}
+            className="bento-card col-span-1 md:col-span-2 h-full bg-black/40 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-2xl p-6 md:p-8 flex flex-col justify-center transition-all duration-300 hover:border-info/50 hover:shadow-[0_0_20px_rgba(0,243,255,0.2)]"
           >
-            <div className="card-body p-6">
-              <span className="font-mono text-[10px] text-[#00ffcc]/60 tracking-[0.2em] mb-4 uppercase">
-                // {skills.arsenal.title}
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {skills.arsenal.tags.map(tag => (
-                  <span key={tag} className="text-xs font-mono text-[#00ffcc]/80 border border-[#00ffcc]/20 px-2 py-1 bg-[#00ffcc]/5 rounded">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+            <span className="font-mono text-xs text-white/40 tracking-[0.2em] uppercase mb-4">
+              // {skills.arsenal.title}
+            </span>
+            <div className="flex flex-wrap gap-3 mt-auto">
+              {skills.arsenal.tags.map(tag => (
+                <span key={tag} className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-[#00f3ff] bg-[#00f3ff]/10 border border-[#00f3ff]/30 rounded-full shadow-[0_0_15px_rgba(0,243,255,0.15)]">
+                  {tag}
+                </span>
+              ))}
             </div>
           </motion.div>
 

@@ -122,6 +122,7 @@ const ProjectsSection = () => {
 
   return (
     <section
+      id="projects"
       ref={containerRef}
       className="relative"
       style={{ height: `${totalSlides * 100}vh` }}
@@ -151,8 +152,8 @@ const ProjectsSection = () => {
             <div
               key={p.id}
               className={`w-1 h-8 transition-colors duration-300 ${scrollProgress >= i / totalSlides && scrollProgress < (i + 1) / totalSlides
-                  ? "bg-primary glow-blue"
-                  : "bg-border"
+                ? "bg-primary glow-blue"
+                : "bg-border"
                 }`}
             />
           ))}
