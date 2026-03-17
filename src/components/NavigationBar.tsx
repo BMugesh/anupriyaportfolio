@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import logoImg from "@/assets/logo.png";
 
 const NAV_ITEMS = [
     { name: "// 01. ABOUT", id: "about" },
