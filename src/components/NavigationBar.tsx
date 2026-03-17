@@ -121,27 +121,11 @@ export default function NavigationBar() {
                 <div className="navbar-start">
                     <motion.div
                         onClick={scrollToTop}
-                        className="cursor-pointer font-black text-xl tracking-tighter"
-                        initial="idle"
-                        whileHover="hover"
-                        style={{ fontFamily: "'Syncopate', sans-serif" }}
+                        className="cursor-pointer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                     >
-                        <motion.span
-                            variants={{
-                                idle: { textShadow: "none", x: 0 },
-                                hover: {
-                                    color: "#00b4ff",
-                                    textShadow: "0 0 8px rgba(0,180,255,0.8)",
-                                    x: [-2, 2, -1, 1, 0],
-                                    transition: {
-                                        x: { duration: 0.2, repeat: Infinity, repeatType: "mirror" }
-                                    }
-                                }
-                            }}
-                            className="inline-block uppercase"
-                        >
-                            &lt;AD /&gt;
-                        </motion.span>
+                        <img src={logoImg} alt="Anupriya D" className="h-10 w-auto object-contain" />
                     </motion.div>
                 </div>
 
